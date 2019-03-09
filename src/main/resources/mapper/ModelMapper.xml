@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cnct.mapper.ModelMapper">
+    <!--修改模板-->
+    <update id="updateModel" parameterType="com.cnct.entity.ModelBean">
+        update model set
+        <if test="mname != null and mname != ''">mname = #{mname},</if>
+        <if test="author != null and author != ''">author = #{author},</if>
+        <if test="seoword != null and seoword != ''">seoword = #{seoword},</if>
+        <if test="describtion != null and describtion != ''">describtion = #{describtion},</if>
+        <if test="pcurl != null and pcurl != ''">pcurl = #{pcurl},</if>
+        <if test="pcpath != null and pcpath != ''">pcpath = #{pcpath},</if>
+        <if test="phoneurl != null and phoneurl != ''">phoneurl = #{phoneurl},</if>
+        <if test="phpath != null and phpath != ''">phpath = #{phpath},</if>
+        <if test="tid != null and tid != ''">tid = #{tid},</if>
+        <if test="hid != null and hid != ''">hid = #{hid},</if>
+        <if test="sid != null and sid != ''">sid = #{sid},</if>
+        <if test="aid != null and aid != ''">aid = #{aid},</if>
+        <if test="cid != null and cid != ''">cid = #{cid},</if>
+        <if test="keyword != null and keyword != ''">keyword = #{keyword},</if>
+        <if test="status != null and status != ''">status = #{status},</if>
+        <if test="mprice != null and mprice != ''">mprice = #{mprice},</if>
+        model_id = #{model_id}
+        where model_id = #{model_id}
+    </update>
+
+    <!--查询模板-->
+    <select id="queryModels" parameterType="com.cnct.entity.PageVo" resultType="com.cnct.entity.ModelBean">
+        select
+        m.model_id, m.mname, m.describtion, m.pcurl, m.pcpath, m.seoword, m.status, m.author,
+        m.phoneurl, m.phpath, m.keyword, date_format(m.addtime,'%Y-%m-%d') as addtime, m.mprice
+        , co.cid, co.cname, co.cssdata
+        , t.tid, t.tname
+        , h.hid, h.hname
+        , a.aid, a.aname
+        <if test="largest != null and largest != ''">, iu.counts</if>
+        from
+        model m
+        left join mtypes t on m.tid = t.tid
+        left join hangye h on m.hid = h.hid
+        left join application a on m.aid = a.aid
+        left join color co on m.cid = co.cid
+        left join view_hotm iu on m.model_id = iu.model_id
+        <where>
+            m.bid = 1
+            <if test="tid != null and tid != ''">and m.tid = #{tid}</if>
+            <if test="hid != null and hid != ''">and m.hid = #{hid}</if>
+            <if test="aid != null and aid != ''">and m.aid = #{aid}</if>
+            <if test="cid != null and cid != ''">and m.cid = #{cid}</if>
+            <if test="status != null and status != ''">and m.status = #{status}</if>
+            <if test="keyword != null and keyword != ''">and m.keyword like concat('%',#{keyword},'%')</if>
+            <if test="largest != null and largest != ''">and m.model_id = iu.model_id</if>
+            <if test="newst != null and newst != ''">order by m.addtime desc</if>
+        </where>
+        limit #{currentPage} , #{pageSize}
+    </select>
+
+    <!--查询总数-->
+    <select id="getAllRows" parameterType="com.cnct.entity.PageVo" resultType="Integer">
+        select
+        count(1)
+        from
+        model m
+        <if test="hid != null and hid != ''">, hangye h</if>
+        <if test="tid != null and tid != ''">, mtypes t</if>
+        <if test="cid != null and cid != ''">, color co</if>
+        <if test="aid != null and aid != ''">, application a</if>
+        <if test="largest != null and largest != ''">, view_hotm iu</if>
+        <where>
+            m.bid = 1
+            <if test="hid != null and hid != ''">and m.hid = h.hid and m.hid = #{hid}</if>
+            <if test="tid != null and tid != ''">and m.tid = t.tid and m.tid = #{tid}</if>
+            <if test="cid != null and cid != ''">and m.cid = co.cid and m.cid = #{cid}</if>
+            <if test="aid != null and aid != ''">and m.aid = a.aid and m.aid = #{aid}</if>
+            <if test="status != null and status != ''">and m.status = #{status}</if>
+            <if test="largest != null and largest != ''">and m.model_id = iu.model_id</if>
+            <if test="keyword != null and keyword != ''">and m.keyword like concat('%',#{keyword},'%')</if>
+        </where>
+    </select>
+
+</mapper>

@@ -1,0 +1,45 @@
+spring.thymeleaf.prefix: classpath:/templates/
+
+server:
+  port: 8092
+  servlet:
+    context-path: /whale
+
+#默认使用配置
+spring:
+  # 环境 dev|test|pro
+  profiles:
+      active: dev
+  resources: # 指定静态资源的路径
+      static-locations: classpath:/static/,classpath:/templates/,file:${web.image-path}
+  #给服务取名字以便在eureka服务注册list中查看
+  application:
+    name: provider-service
+
+#eureka配置
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone: http://localhost:8076/eureka/
+
+#mybatis配置
+mybatis.mapperLocations: classpath:mapper/*.xml
+mybatis.typeAliasesPackage: com.cnct.entity
+mybatis.configuration.cache-enabled: true
+
+#更改tomcat默认上传请求文件的大小
+spring.servlet.multipart.maxFileSize: 100MB
+spring.servlet.multipart.maxRequestSize: 100MB
+
+
+
+
+
+
+
+
+
+
+
