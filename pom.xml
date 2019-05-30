@@ -158,6 +158,38 @@
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
 
+		<!--zk测试
+			springcloud对zookeeper的整合包默认的Curator （Netflix公司开源的一个Zookeeper客户端）
+			Curator版本跟zookeeper版本有对应关系
+			Curator 4.x 对应的zookeeper 是3.5.5的
+			目前zookeeper是3.4.14版本的，需要把springcloud的spring-cloud-starter-zookeeper-discovery
+			中的zookeeper剔除掉，重新引入与当前zookeeper相对应的版本，注册中心、客户端、服务端也如此
+		-->
+		<!--<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-zookeeper-discovery</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.zookeeper</groupId>
+					<artifactId>zookeeper</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.zookeeper</groupId>
+			<artifactId>zookeeper</artifactId>
+			&lt;!&ndash; 与服务器安装的Zookeeper版本相同 &ndash;&gt;
+			<version>3.4.14</version>
+			<exclusions>
+				&lt;!&ndash;剔除冲突的log4j&ndash;&gt;
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-log4j12</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>-->
+
+
 	</dependencies>
 
 	<dependencyManagement>

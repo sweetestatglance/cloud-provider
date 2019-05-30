@@ -145,7 +145,7 @@ public class ModelController {
         }
         return map;
     }
-
+//-------------------------------------------------------------
     /**
      * 查询模板
      * @return
@@ -182,7 +182,7 @@ public class ModelController {
         ModelBean m = moma.getmodelbyid(model_id);
         return m;
     }
-
+//------------------------------------------------------------------------
     /**
      * 删除模板
      * @return

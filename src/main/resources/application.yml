@@ -16,6 +16,14 @@ spring:
   application:
     name: provider-service
 
+ #zk
+ # cloud:
+ #   zookeeper:
+ #     connect-string: localhost:2181
+ #     discovery:
+ #       instance-host: localhost
+  #      instance-port: ${server.port}
+
 #eureka配置
 eureka:
   instance:
@@ -23,6 +31,9 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8076/eureka/
+
+
+
 
 #mybatis配置
 mybatis.mapperLocations: classpath:mapper/*.xml
