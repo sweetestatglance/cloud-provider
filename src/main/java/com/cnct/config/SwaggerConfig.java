@@ -18,7 +18,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 @Configuration
 @ComponentScan(basePackages = {"com.cnct.controller"})
-public class SwaggerConfig extends WebMvcConfigurerAdapter {
+public class SwaggerConfig {
     @Bean
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -33,7 +33,7 @@ public class SwaggerConfig extends WebMvcConfigurerAdapter {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("模板展示网站API接口文档")//大标题
+                .title("springcloud-config_client 服务端 API接口文档")//大标题
                 .description("（1）前端人员与后端人员的对接。<br/>（2）同时集成接口测试工具，方便后端测试接口<br/><span style='color:blue'>（3）后端人员务必采用Swagger注解写好各接口的描述。</span>")//详细描述
                 .version("1.0")//版本
                 .termsOfServiceUrl("NO terms of service")
@@ -43,11 +43,4 @@ public class SwaggerConfig extends WebMvcConfigurerAdapter {
                 .build();
     }
 
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("swagger-ui.html","doc.html")
-                .addResourceLocations("classpath:/META-INF/resources/");
-        registry.addResourceHandler("/webjars/**")
-                .addResourceLocations("classpath:/META-INF/resources/webjars/");
-    }
 }

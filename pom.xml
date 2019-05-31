@@ -158,6 +158,12 @@
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
 
+		<!-- configclient 配置中心客户端 -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-config-client</artifactId>
+		</dependency>
+
 		<!--zk测试
 			springcloud对zookeeper的整合包默认的Curator （Netflix公司开源的一个Zookeeper客户端）
 			Curator版本跟zookeeper版本有对应关系

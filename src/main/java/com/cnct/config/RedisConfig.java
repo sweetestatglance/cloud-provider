@@ -67,6 +67,11 @@ public class RedisConfig extends CachingConfigurerSupport {
         RedisSerializer<String> redisSerializer = new StringRedisSerializer();
         //redis value 的序列化策略
         Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
+        //设置序列化流的操作，对key value影响，不然会导致反序列化取值时返回空
+        ObjectMapper om = new ObjectMapper();
+        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+        jackson2JsonRedisSerializer.setObjectMapper(om);
         // 生成一个默认配置，通过config对象即可对缓存进行自定义配置
         RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig()
                 //在RedisCacheConfiguration 中配置序列化方式

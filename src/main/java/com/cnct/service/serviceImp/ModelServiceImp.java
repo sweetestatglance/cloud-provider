@@ -47,7 +47,7 @@ public class ModelServiceImp implements ModelService {
      * @return
      */
     @Override
-    //@Cacheable(value = "model_cache")
+    @Cacheable(value = "md_cache",key = "#vo.currentPage.toString() + '_md'")
     public PageBean<ModelBean> queryModels(PageVo vo) {
         PageBean<ModelBean> pagelist = new PageBean<ModelBean>();
         pagelist.setCurrentPage(vo.getCurrentPage()); //当前页

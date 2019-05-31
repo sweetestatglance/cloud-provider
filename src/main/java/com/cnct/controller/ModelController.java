@@ -139,6 +139,7 @@ public class ModelController {
             map.put("msg", "查询成功!");
             map.put("page", pagedata);
         } catch (Exception e) {
+            e.printStackTrace();
             map.put("code", 400);
             map.put("msg", "查询失败!");
             return map;
